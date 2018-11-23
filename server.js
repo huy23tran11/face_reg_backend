@@ -8,6 +8,9 @@ const register = require('./controllers/register');
 const signIn = require('./controllers/signIn');
 const image = require('./controllers/image');
 const users = require('./controllers/users');
+const profile = require('./controllers/profile');
+const imageUpdate = require ('./controllers/imageUpdate')
+
 const db = knex({
   client: 'pg',
   connection: {
@@ -24,13 +27,15 @@ app.use(bodyParser.json());
 
 app.use(cors());
 
+app.post('/imageUpdate', (req,res) => imageUpdate.handleImageUpdate(req,res,db))
+
 app.get('/',(req,res) => users.handleUsers(req,res,db));
 
 app.post('/signin',(req, res) => signIn.handleSignIn(req, res, db, bcrypt))
 
 app.post('/register',(req, res) => register.handleRegister(req, res, db, bcrypt))
 
-app.get('/profile/:id',(req, res)=> profile.handleProfile(req, res, db))
+app.post('/profile',(req, res) => profile.handleProfile(req,res,db))
 
 app.put('/image',(req, res)=> image.handleImage(req, res, db))
 
