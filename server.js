@@ -29,7 +29,8 @@ app.use(cors());
 
 app.post('/imageUpdate', (req,res) => imageUpdate.handleImageUpdate(req,res,db))
 
-app.get('/',(req,res) => users.handleUsers(req,res,db));
+app.get('/',(req,res) => res.json('it is working'));
+// app.get('/',(req,res) => users.handleUsers(req,res,db));
 
 app.post('/signin',(req, res) => signIn.handleSignIn(req, res, db, bcrypt))
 
